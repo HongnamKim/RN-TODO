@@ -101,7 +101,7 @@ const SignInScreen = () => {
             title={"회원가입"}
             onPress={() => NotSupport("회원가입")}
           />
-          <Text>/</Text>
+          <Text style={{ color: "#515151" }}>/</Text>
           <TextButton
             title={"이메일 또는 비밀번호 찾기"}
             onPress={() => NotSupport("이메일 또는 비밀번호 찾기")}

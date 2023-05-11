@@ -1,19 +1,17 @@
 import { Pressable, StyleSheet, Text } from "react-native";
-import { useState } from "react";
+
 import PropTypes from "prop-types";
 
 import { GRAY } from "../colors";
 
 const TextButton = ({ title, onPress }) => {
-  const [pressed, setPressed] = useState();
   return (
-    <Pressable
-      style={({ pressed }) => [styles.button, setPressed(pressed)]}
-      onPress={onPress}
-    >
-      <Text style={[styles.text, pressed && { color: GRAY.DEFAULT }]}>
-        {title}
-      </Text>
+    <Pressable onPress={onPress} style={styles.button}>
+      {({ pressed }) => (
+        <Text style={[styles.text, pressed && { color: GRAY.DEFAULT }]}>
+          {title}
+        </Text>
+      )}
     </Pressable>
   );
 };

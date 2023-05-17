@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: {
-    color: "#515151",
+    color: GRAY.DARK,
     lineHeight: 20,
   },
 });

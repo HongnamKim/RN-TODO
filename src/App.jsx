@@ -1,21 +1,13 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View } from "react-native";
-import SignInScreen from "./screens/SignInScreen";
 
-import { WHITE } from "./colors";
+import UserProvider from "./contexts/UserContext";
+import Navigation from "./navigations/Navigation";
 
 export default function App() {
   return (
-    <View style={styles.container}>
+    <UserProvider>
       <StatusBar style="dark" />
-      <SignInScreen />
-    </View>
+      <Navigation />
+    </UserProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: WHITE,
-  },
-});

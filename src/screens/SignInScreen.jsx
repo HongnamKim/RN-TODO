@@ -1,6 +1,8 @@
 import { StyleSheet, View, Image, Keyboard, Alert, Text } from "react-native";
 import { useEffect, useRef, useState } from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import PropTypes from "prop-types";
 
 import Input, {
   KeyboardType,
@@ -16,12 +18,19 @@ import { signIn } from "../api/auth";
 import { NotSupport } from "../util/NotSupport";
 
 import ImgMain from "../../assets/main.png";
+import { useUserContext } from "../contexts/UserContext";
 
 const EMAIL_STORAGE = "@email";
 
-const SignInScreen = () => {
+const SignInScreen = ({ navigation }) => {
+  const { setUser } = useUserContext();
+
+  const passwordRef = useRef(null);
+  const insets = useSafeAreaInsets();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const [showPassword, setShowPassWord] = useState(false);
   const [saveEmail, setSaveEmail] = useState(false);
 
@@ -35,8 +44,6 @@ const SignInScreen = () => {
   useEffect(() => {
     setDisabled(!email || !password);
   }, [email, password]);
-
-  const passwordRef = useRef(null);
 
   const handleEmailChange = (e) => {
     setEmail(e.trim());
@@ -91,9 +98,10 @@ const SignInScreen = () => {
       setIsLoading((prev) => !prev);
       Keyboard.dismiss();
       const data = await signIn(email, password);
-      console.log(data);
+      setUser(data);
       await uploadEmail(saveEmail, email);
       setIsLoading((prev) => !prev);
+      navigation.navigate("List");
     } catch (error) {
       Alert.alert("로그인 실패", error, [
         { text: "확인", onPress: () => setIsLoading((prev) => !prev) },
@@ -103,7 +111,12 @@ const SignInScreen = () => {
 
   return (
     <SafeInputView>
-      <View style={styles.container}>
+      <View
+        style={[
+          styles.container,
+          { paddingBottom: insets.bottom, paddingTop: insets.top },
+        ]}
+      >
         <Image source={ImgMain} alt="main image" style={styles.image} />
 
         <Input
@@ -125,6 +138,7 @@ const SignInScreen = () => {
           value={password}
           onChangeText={handlePasswordChange}
           iconName={IconNames.PASSWORD}
+          onSubmitEditing={onSubmit}
         />
         <View style={styles.checkboxContainer}>
           <CheckBoxWithText
@@ -160,6 +174,10 @@ const SignInScreen = () => {
       </View>
     </SafeInputView>
   );
+};
+
+SignInScreen.propTypes = {
+  navigation: PropTypes.object,
 };
 
 const styles = StyleSheet.create({

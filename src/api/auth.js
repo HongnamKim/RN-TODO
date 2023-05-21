@@ -14,3 +14,15 @@ export const signIn = (email, password) => {
     }, 1000);
   });
 };
+
+export const signUp = (email, password, checkPassword) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (password === checkPassword) {
+        resolve("회원가입 되었습니다.");
+      } else {
+        reject("입력한 두 비밀번호가 다릅니다.");
+      }
+    }, 1000);
+  });
+};

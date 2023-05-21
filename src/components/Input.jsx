@@ -71,6 +71,7 @@ const Input = forwardRef(
             autoComplete="off"
             autoCapitalize="none"
             autoCorrect={false}
+            spellCheck={false}
             placeholderTextColor={GRAY.DEFAULT}
             keyboardAppearance="light"
             onFocus={() => setIsFocused(true)}

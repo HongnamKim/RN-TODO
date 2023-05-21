@@ -45,22 +45,6 @@ const SignInScreen = ({ navigation }) => {
     setDisabled(!email || !password);
   }, [email, password]);
 
-  const handleEmailChange = (e) => {
-    setEmail(e.trim());
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.trim());
-  };
-
-  const handleShowPassword = () => {
-    setShowPassWord((prev) => !prev);
-  };
-
-  const handleSaveEmail = () => {
-    setSaveEmail((prev) => !prev);
-  };
-
   const uploadEmail = async (saveEmail, email) => {
     try {
       if (saveEmail) {
@@ -126,7 +110,7 @@ const SignInScreen = ({ navigation }) => {
           returnKeyType={ReturnKeyType.NEXT}
           value={email}
           defaultValue={email}
-          onChangeText={handleEmailChange}
+          onChangeText={(e) => setEmail(e.trim())}
           iconName={IconNames.EMAIL}
           onSubmitEditing={() => passwordRef.current.focus()}
         />
@@ -136,7 +120,7 @@ const SignInScreen = ({ navigation }) => {
           secureTextEntry={showPassword}
           returnKeyType={ReturnKeyType.DONE}
           value={password}
-          onChangeText={handlePasswordChange}
+          onChangeText={(e) => setPassword(e.trim())}
           iconName={IconNames.PASSWORD}
           onSubmitEditing={onSubmit}
         />
@@ -144,12 +128,12 @@ const SignInScreen = ({ navigation }) => {
           <CheckBoxWithText
             title={"비밀번호 보이기"}
             value={showPassword}
-            onValueChange={handleShowPassword}
+            onValueChange={() => setShowPassWord((prev) => !prev)}
           />
           <CheckBoxWithText
             title={"계정 기억하기"}
             value={saveEmail}
-            onValueChange={handleSaveEmail}
+            onValueChange={() => setSaveEmail((prev) => !prev)}
           />
         </View>
         <View style={styles.buttonContainer}>
@@ -163,7 +147,7 @@ const SignInScreen = ({ navigation }) => {
         <View style={styles.textButtonContainer}>
           <TextButton
             title={"회원가입"}
-            onPress={() => NotSupport("회원가입")}
+            onPress={() => navigation.navigate("SignUp")}
           />
           <Text style={{ color: "#515151" }}>/</Text>
           <TextButton

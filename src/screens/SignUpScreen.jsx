@@ -31,10 +31,13 @@ const SignUpScreen = () => {
     try {
       setIsLoading((prev) => !prev);
       Keyboard.dismiss();
+
       const signUpResult = await signUp(email, password, checkPassword);
+
       Alert.alert("회원가입 성공", signUpResult, [
         { text: "확인", onPress: () => navigation.goBack() },
       ]);
+
       setIsLoading((prev) => !prev);
     } catch (error) {
       Alert.alert("회원가입 실패", error, [

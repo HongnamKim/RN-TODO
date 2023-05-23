@@ -19,8 +19,7 @@ import { NotSupport } from "../util/NotSupport";
 
 import ImgMain from "../../assets/main.png";
 import { useUserContext } from "../contexts/UserContext";
-
-const EMAIL_STORAGE = "@email";
+import { EMAIL_STORAGE } from "../api/dbKeys";
 
 const SignInScreen = ({ navigation }) => {
   const { setUser } = useUserContext();

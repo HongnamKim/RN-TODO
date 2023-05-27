@@ -2,7 +2,7 @@ import { Pressable, StyleSheet, Text } from "react-native";
 import CheckBox from "expo-checkbox";
 import PropTypes from "prop-types";
 
-import { GRAY } from "../colors";
+import { BLACK, GRAY } from "../colors";
 
 const CheckBoxWithText = ({ title, value, onValueChange }) => {
   return (
@@ -34,6 +34,9 @@ const styles = StyleSheet.create({
     borderColor: GRAY.DEFAULT,
     borderWidth: 1,
     marginRight: 10,
+  },
+  text: {
+    color: BLACK,
   },
 });
 

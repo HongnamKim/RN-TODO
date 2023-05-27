@@ -4,8 +4,11 @@ import { Alert } from "react-native";
 
 export const signIn = async (email, password) => {
   // 로그인 시도 시 AsyncStorage에 있는 계정 객체를 불러옴.
+  let accountList = {};
   const d = await AsyncStorage.getItem(ACCOUNTS_KEY);
-  const accountList = JSON.parse(d);
+  if (d !== null) {
+    accountList = JSON.parse(d);
+  }
   // accountList 객체의 key(이메일) 저장 --> emailList
   const emailList = Object.keys(accountList);
   return new Promise((resolve, reject) => {
@@ -31,8 +34,11 @@ export const signUp = async (email, password, checkPassword) => {
     setTimeout(async () => {
       // AsyncStorage에 저장되어있는 계정 객체를 불러옴 --> accountList
       // accountList 객체의 key(이메일) 저장 --> emailList
+      let accountList = {};
       const d = await AsyncStorage.getItem(ACCOUNTS_KEY);
-      const accountList = JSON.parse(d);
+      if (d !== null) {
+        accountList = JSON.parse(d);
+      }
       const emailList = Object.keys(accountList);
       // email 형식이 아닌 경우
       if (!email.includes("@") || !email.includes(".")) {

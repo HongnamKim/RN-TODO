@@ -2,6 +2,7 @@ import { Image, StyleSheet, Text, View } from "react-native";
 import { useUserContext } from "../contexts/UserContext";
 
 import ImgAvatar from "../../assets/avatar.jpeg";
+import { BLACK } from "../colors";
 
 const Avartar = () => {
   const { user } = useUserContext();
@@ -30,6 +31,7 @@ const styles = StyleSheet.create({
   account: {
     fontSize: 25,
     fontWeight: "600",
+    color: BLACK,
   },
 });
 

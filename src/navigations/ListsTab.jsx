@@ -23,24 +23,26 @@ const ListsTab = () => {
         name="To Do"
         component={ListScreen}
         options={{
-          tabBarIcon: ({ focused, color, size }) =>
-            focused ? (
-              <Ionicons name="folder-open" size={size} color={color} />
-            ) : (
-              <Ionicons name="folder-open-outline" size={size} color={color} />
-            ),
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons
+              name={focused ? "folder-open" : "folder-open-outline"}
+              size={size}
+              color={color}
+            />
+          ),
         }}
       />
       <Tab.Screen
         name="Cart"
         component={CartScreen}
         options={{
-          tabBarIcon: ({ focused, color, size }) =>
-            focused ? (
-              <Ionicons name="ios-cart" size={size} color={color} />
-            ) : (
-              <Ionicons name="ios-cart-outline" size={size} color={color} />
-            ),
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons
+              name={focused ? "ios-cart" : "ios-cart-outline"}
+              size={size}
+              color={color}
+            />
+          ),
         }}
       />
     </Tab.Navigator>

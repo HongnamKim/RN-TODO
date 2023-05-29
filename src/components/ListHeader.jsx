@@ -1,50 +1,40 @@
 import { StyleSheet, View, Text } from "react-native";
 import PropTypes from "prop-types";
 import { useCallback, useEffect, useState } from "react";
+import { useTodayContext } from "../contexts/TodayContext";
 
 const ListHeader = ({ todos }) => {
   const [totalList, setTotalList] = useState(0);
   const [doneList, setDoneList] = useState(0);
   const [undoneList, setUndoneList] = useState(0);
 
-  const today = new Date();
-  const todayYear = today.getFullYear();
-  const todayMonth = ("00" + (today.getMonth() + 1)).slice(-2);
-  const todayDate = ("00" + today.getDate()).slice(-2);
-
-  useEffect(() => {
-    countList();
-  }, [todos, countList]);
+  const { todayYear, todayMonth, todayDate } = useTodayContext();
 
   const countList = useCallback(() => {
     setTotalList(todos.length);
     setDoneList(() => {
       let count = 0;
-      todos.forEach((item) => {
-        if (item.isDone) {
-          count++;
-        }
-      });
-
+      todos.forEach((item) => item.isDone && count++);
       return count;
     });
+
     setUndoneList(() => {
       let count = 0;
-      todos.forEach((item) => {
-        if (!item.isDone) {
-          count++;
-        }
-      });
-
+      todos.forEach((item) => item.isDone || count++);
       return count;
     });
   }, [todos]);
+
+  useEffect(() => {
+    countList();
+  }, [todos, countList]);
 
   return (
     <View style={styles.header}>
       <Text style={styles.date}>
         {`${todayYear}. ${todayMonth}. ${todayDate}`}
       </Text>
+
       <Text
         style={styles.count}
       >{`${totalList} / ${doneList} / ${undoneList}`}</Text>
@@ -55,7 +45,6 @@ const ListHeader = ({ todos }) => {
 ListHeader.propTypes = {
   todos: PropTypes.array.isRequired,
 };
-
 const styles = StyleSheet.create({
   header: {
     flexDirection: "row",

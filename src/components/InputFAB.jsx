@@ -29,7 +29,7 @@ const InputFAB = ({ onInsert }) => {
 
   const spin = buttonRotation.interpolate({
     inputRange: [0, 1],
-    outputRange: ["0deg", "45deg"],
+    outputRange: ["0deg", "-45deg"],
   });
 
   useEffect(() => {
@@ -103,7 +103,6 @@ const InputFAB = ({ onInsert }) => {
           styles.position,
           styles.shape,
           styles.shadow,
-
           {
             justifyContent: "center",
             bottom: keyboardHeight,

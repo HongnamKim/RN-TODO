@@ -1,17 +1,32 @@
-import { memo } from "react";
+import { memo, useRef } from "react";
 import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 import PropTypes from "prop-types";
-import { DANGER, GRAY, PRIMARY } from "../colors";
+import { DANGER, GRAY, PRIMARY, WHITE } from "../colors";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useTodayContext } from "../contexts/TodayContext";
 
 const ListItem = memo(({ item, onDelete, onToggle }) => {
-  const today = new Date();
-  const todayDate = today.getDate();
+  const { todayYear, todayMonth, todayDate } = useTodayContext();
+
+  const dDay = useRef();
+
+  const postTime = new Date(item.date);
+  const postYear = postTime.getFullYear();
+  const postMonth = ("00" + (postTime.getMonth() + 1)).slice(-2);
+  const postDate = ("00" + postTime.getDate()).slice(-2);
+
+  const postDateString = `${postYear}-${postMonth}-${postDate}`;
+  const todayDateString = `${todayYear}-${todayMonth}-${todayDate}`;
+
+  const postObject = new Date(postDateString);
+  const todayObject = new Date(todayDateString);
+  dDay.current = (todayObject - postObject) / 1000 / 3600 / 24;
+
   const checkboxProps = {
     name: item.isDone ? "checkbox-marked" : "checkbox-blank-outline",
     color: item.isDone ? PRIMARY.DEFAULT : GRAY.DARK,
-    size: 20,
+    size: 24,
   };
 
   return (
@@ -26,14 +41,16 @@ const ListItem = memo(({ item, onDelete, onToggle }) => {
 
       <View style={styles.task}>
         <Text style={item.isDone && { color: GRAY.DEFAULT }}>{item.task}</Text>
+
         <Text
-          style={[{ color: GRAY.DARK }, item.isDone && { color: GRAY.DEFAULT }]}
-        >{`${item.month + 1} / ${item.d}`}</Text>
+          style={[styles.postDate, item.isDone && { color: GRAY.DEFAULT }]}
+        >{`${postMonth} / ${postDate}`}</Text>
       </View>
+
       <View style={{ marginRight: 10 }}>
-        <Text style={item.isDone && { color: GRAY.DEFAULT }}>{`D+${
-          todayDate - item.d
-        }`}</Text>
+        <Text style={item.isDone && { color: GRAY.DEFAULT }}>
+          {`D+${dDay.current}`}
+        </Text>
       </View>
 
       <Pressable
@@ -78,11 +95,13 @@ const styles = StyleSheet.create({
     borderColor: GRAY.DARK,
     flexDirection: "row",
     alignItems: "center",
+    backgroundColor: WHITE,
   },
   task: {
     flex: 1,
     marginHorizontal: 10,
   },
+  postDate: { color: GRAY.DARK },
 });
 
 export default ListItem;

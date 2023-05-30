@@ -2,9 +2,15 @@ import { FlatList, StyleSheet, View } from "react-native";
 import PropTypes from "prop-types";
 import ListItem from "./ListItem";
 import { GRAY } from "../colors";
+import { useTheme } from "styled-components";
 
 const Separator = () => {
-  return <View style={styles.separator}></View>;
+  const { COLORS } = useTheme();
+  return (
+    <View
+      style={[styles.separator, { backgroundColor: COLORS.GRAY.DEFAULT }]}
+    ></View>
+  );
 };
 
 const List = ({ data, onDelete, onToggle }) => {

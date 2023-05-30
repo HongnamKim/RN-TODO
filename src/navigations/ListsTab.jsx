@@ -2,22 +2,27 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ListScreen from "../screens/ListScreen";
 import CartScreen from "../screens/CartScreen";
 import { Ionicons } from "@expo/vector-icons";
-import { GRAY, PRIMARY, WHITE } from "../colors";
+
+import { useTheme } from "styled-components";
 
 const Tab = createBottomTabNavigator();
 
 const ListsTab = () => {
+  const { COLORS } = useTheme();
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: PRIMARY.DEFAULT,
-        tabBarInactiveTintColor: GRAY.DEFAULT,
+        tabBarActiveTintColor: COLORS.PRIMARY.DEFAULT,
+        tabBarInactiveTintColor: COLORS.GRAY.DEFAULT,
+        tabBarStyle: {
+          backgroundColor: COLORS.mainBg,
+        },
         tabBarLabelStyle: {
           fontSize: 15,
         },
       }}
-      sceneContainerStyle={{ backgroundColor: WHITE }}
+      sceneContainerStyle={{ backgroundColor: COLORS.mainBg }}
     >
       <Tab.Screen
         name="To Do"

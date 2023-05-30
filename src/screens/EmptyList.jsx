@@ -1,14 +1,16 @@
 import { Image, StyleSheet, Text, View } from "react-native";
+import { useTheme } from "styled-components";
 
 import ImgMain from "../../assets/main.png";
 
-import { PRIMARY } from "../colors";
-
 const EmptyList = () => {
+  const { COLORS } = useTheme();
   return (
     <View style={styles.container}>
       <Image source={ImgMain} style={styles.image} />
-      <Text style={styles.text}>할 일을 추가해주세요</Text>
+      <Text style={[styles.text, { color: COLORS.PRIMARY.DEFAULT }]}>
+        할 일을 추가해주세요
+      </Text>
     </View>
   );
 };
@@ -26,9 +28,9 @@ const styles = StyleSheet.create({
     width: 200,
   },
   text: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "700",
-    color: PRIMARY.DEFAULT,
+
     marginTop: 10,
   },
 });

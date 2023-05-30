@@ -2,6 +2,7 @@ import { StyleSheet, View, Text } from "react-native";
 import PropTypes from "prop-types";
 import { useCallback, useEffect, useState } from "react";
 import { useTodayContext } from "../contexts/TodayContext";
+import { useTheme } from "styled-components";
 
 const ListHeader = ({ todos }) => {
   const [totalList, setTotalList] = useState(0);
@@ -9,6 +10,7 @@ const ListHeader = ({ todos }) => {
   const [undoneList, setUndoneList] = useState(0);
 
   const { todayYear, todayMonth, todayDate } = useTodayContext();
+  const { COLORS } = useTheme();
 
   const countList = useCallback(() => {
     setTotalList(todos.length);
@@ -31,12 +33,12 @@ const ListHeader = ({ todos }) => {
 
   return (
     <View style={styles.header}>
-      <Text style={styles.date}>
+      <Text style={[styles.date, { color: COLORS.mainText }]}>
         {`${todayYear}. ${todayMonth}. ${todayDate}`}
       </Text>
 
       <Text
-        style={styles.count}
+        style={[styles.count, { color: COLORS.mainText }]}
       >{`${totalList} / ${doneList} / ${undoneList}`}</Text>
     </View>
   );

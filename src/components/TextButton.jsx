@@ -2,13 +2,19 @@ import { Pressable, StyleSheet, Text } from "react-native";
 
 import PropTypes from "prop-types";
 
-import { GRAY } from "../colors";
+import { useTheme } from "styled-components";
 
 const TextButton = ({ title, onPress }) => {
+  const { COLORS } = useTheme();
   return (
     <Pressable onPress={onPress} style={styles.button}>
       {({ pressed }) => (
-        <Text style={[styles.text, pressed && { color: GRAY.DEFAULT }]}>
+        <Text
+          style={[
+            { color: COLORS.subText, lineHeight: 20 },
+            pressed && { color: COLORS.GRAY.DARK },
+          ]}
+        >
           {title}
         </Text>
       )}
@@ -26,10 +32,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     justifyContent: "center",
     alignItems: "center",
-  },
-  text: {
-    color: GRAY.DARK,
-    lineHeight: 20,
   },
 });
 

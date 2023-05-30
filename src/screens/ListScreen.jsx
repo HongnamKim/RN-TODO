@@ -9,12 +9,15 @@ import ListHeader from "../components/ListHeader";
 import List from "../components/List";
 import InputFAB from "../components/InputFAB";
 import TodayProvider from "../contexts/TodayContext";
+import { useUserContext } from "../contexts/UserContext";
 
 const ListScreen = () => {
+  const { user } = useUserContext();
+
   const [todos, setTodos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { getItem, setItem } = useAsyncStorage("todos");
+  const { getItem, setItem } = useAsyncStorage(`${user}-todos`);
 
   const save = async (data) => {
     try {

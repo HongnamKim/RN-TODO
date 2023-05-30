@@ -4,12 +4,18 @@ import { useUserContext } from "../contexts/UserContext";
 import { deleteAccount } from "../api/auth";
 import Avartar from "../components/Avartar";
 
+import SwitchContainer from "../components/SwitchContainer";
+
 const SettingScreen = () => {
   const { user, setUser } = useUserContext();
 
   return (
     <View style={styles.container}>
       <Avartar />
+      <View style={styles.switchContainer}>
+        <SwitchContainer title="다크모드" />
+      </View>
+
       <View style={styles.buttonContainer}>
         <Button
           title="로그아웃"
@@ -31,6 +37,7 @@ const SettingScreen = () => {
           buttonType={ButtonTypes.DANGER}
         />
       </View>
+
       <View style={styles.buttonContainer}>
         <Button
           title="계정 탈퇴"
@@ -65,6 +72,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  switchContainer: { width: "100%", paddingHorizontal: 20, marginBottom: 20 },
+
   account: {
     fontSize: 25,
     fontWeight: "600",

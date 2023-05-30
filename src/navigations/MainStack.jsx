@@ -1,22 +1,27 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import SettingScreen from "../screens/SettingScreen";
-import { PRIMARY, WHITE } from "../colors";
+
 import HeaderLeftButton from "../components/HeaderLeftButton";
 import HeaderRightButton from "../components/HeaderRightButton";
 import ListsTab from "./ListsTab";
+import { useTheme } from "styled-components";
 
 const Stack = createNativeStackNavigator();
 
 const MainStack = () => {
+  const { COLORS } = useTheme();
   return (
     <Stack.Navigator
       screenOptions={{
         contentStyle: {
-          backgroundColor: WHITE,
+          backgroundColor: COLORS.mainBg,
         },
         headerTitleAlign: "center",
-        headerTintColor: PRIMARY.DEFAULT,
+        headerTintColor: COLORS.PRIMARY.DEFAULT,
+        headerStyle: {
+          backgroundColor: COLORS.mainBg,
+        },
         headerTitleStyle: {
           fontWeight: "700",
         },

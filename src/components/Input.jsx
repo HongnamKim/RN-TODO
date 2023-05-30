@@ -3,7 +3,7 @@ import { forwardRef, useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import PropTypes from "prop-types";
 
-import { BLACK, GRAY, PRIMARY } from "../colors";
+import { useTheme } from "styled-components";
 
 export const KeyboardType = {
   DEFAULT: "default",
@@ -26,16 +26,57 @@ export const IconNames = {
 
 const Input = forwardRef(
   ({ title, placeholder, value, iconName, secureTextEntry, ...props }, ref) => {
+    const { COLORS } = useTheme();
     const [isFocused, setIsFocused] = useState(false);
+
+    const styles = StyleSheet.create({
+      container: {
+        width: "100%",
+        paddingHorizontal: 20,
+        marginVertical: 10,
+      },
+      title: {
+        marginBottom: 4,
+        color: COLORS.GRAY.DEFAULT,
+      },
+      focusedTitle: {
+        color: COLORS.PRIMARY.DEFAULT,
+      },
+      hasValueTitle: {
+        color: COLORS.mainText,
+      },
+      iconContainer: {
+        position: "absolute",
+        left: 8,
+        height: "100%",
+        justifyContent: "center",
+      },
+      input: {
+        //borderWidth: 1,
+        borderRadius: 8,
+        backgroundColor: COLORS.subBg,
+        paddingLeft: 36,
+        height: 42,
+        //borderColor: COLORS.GRAY.DEFAULT,
+      },
+      focusedInput: {
+        //borderColor: COLORS.PRIMARY.DEFAULT,
+        color: COLORS.PRIMARY.DEFAULT,
+      },
+      hasValueInput: {
+        //borderColor: COLORS.mainText,
+        color: COLORS.mainText,
+      },
+    });
 
     const setIconColor = () => {
       switch (true) {
         case isFocused:
-          return PRIMARY.DEFAULT;
+          return COLORS.PRIMARY.DEFAULT;
         case !!value:
-          return BLACK;
+          return COLORS.mainText;
         default:
-          return GRAY.DEFAULT;
+          return COLORS.GRAY.DEFAULT;
       }
     };
 
@@ -51,13 +92,6 @@ const Input = forwardRef(
           {title}
         </Text>
         <View>
-          <View style={styles.iconContainer}>
-            <MaterialCommunityIcons
-              name={iconName}
-              size={24}
-              color={setIconColor()}
-            />
-          </View>
           <TextInput
             ref={ref}
             style={[
@@ -72,11 +106,18 @@ const Input = forwardRef(
             autoCapitalize="none"
             autoCorrect={false}
             spellCheck={false}
-            placeholderTextColor={GRAY.DEFAULT}
+            placeholderTextColor={COLORS.GRAY.DEFAULT}
             keyboardAppearance="light"
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
           />
+          <View style={[styles.iconContainer]}>
+            <MaterialCommunityIcons
+              name={iconName}
+              size={24}
+              color={setIconColor()}
+            />
+          </View>
         </View>
       </View>
     );
@@ -100,45 +141,5 @@ Input.propTypes = {
   value: PropTypes.string,
   iconName: PropTypes.oneOf(Object.values(IconNames)),
 };
-
-const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    paddingHorizontal: 20,
-    marginVertical: 10,
-  },
-  title: {
-    marginBottom: 4,
-    color: GRAY.DEFAULT,
-  },
-  focusedTitle: {
-    color: PRIMARY.DEFAULT,
-  },
-  hasValueTitle: {
-    color: BLACK,
-  },
-  iconContainer: {
-    position: "absolute",
-    left: 8,
-    height: "100%",
-    justifyContent: "center",
-  },
-  input: {
-    borderWidth: 1,
-    borderRadius: 8,
-
-    paddingLeft: 36,
-    height: 42,
-    borderColor: GRAY.DEFAULT,
-  },
-  focusedInput: {
-    borderColor: PRIMARY.DEFAULT,
-    color: PRIMARY.DEFAULT,
-  },
-  hasValueInput: {
-    borderColor: BLACK,
-    color: BLACK,
-  },
-});
 
 export default Input;

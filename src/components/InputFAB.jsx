@@ -8,15 +8,18 @@ import {
   useWindowDimensions,
 } from "react-native";
 import PropTypes from "prop-types";
-import { BLACK, GRAY, PRIMARY, WHITE } from "../colors";
+
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useEffect, useRef, useState } from "react";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+import { useTheme } from "styled-components";
 
 const BOTTOM = 10;
 const BUTTON_WIDTH = 60;
 
 const InputFAB = ({ onInsert }) => {
+  const { COLORS } = useTheme();
+
   const [text, setText] = useState("");
   const [isOpened, setIsOpened] = useState(false);
   const [keyboardHeight, setKeyboardHeight] = useState(BOTTOM);
@@ -107,6 +110,7 @@ const InputFAB = ({ onInsert }) => {
             justifyContent: "center",
             bottom: keyboardHeight,
             width: inputWidth,
+            backgroundColor: COLORS.PRIMARY.DEFAULT,
           },
         ]}
       >
@@ -114,7 +118,7 @@ const InputFAB = ({ onInsert }) => {
           ref={inputRef}
           onBlur={() => {
             setText("");
-            inputRef.current.focus();
+            close();
           }}
           value={text}
           onChangeText={(e) => setText(e)}
@@ -146,7 +150,7 @@ const InputFAB = ({ onInsert }) => {
             <MaterialCommunityIcons
               name="plus"
               size={24}
-              color={pressed ? GRAY.DEFAULT : WHITE}
+              color={pressed ? COLORS.GRAY.DEFAULT : COLORS.WHITE}
             />
           )}
         </Pressable>
@@ -169,12 +173,11 @@ const styles = StyleSheet.create({
     height: BUTTON_WIDTH,
     width: BUTTON_WIDTH,
     borderRadius: BUTTON_WIDTH / 2,
-    backgroundColor: PRIMARY.DEFAULT,
   },
   input: {
     paddingLeft: 20,
     paddingRight: BUTTON_WIDTH,
-    color: WHITE,
+    color: "#ffffff",
     fontSize: 16,
   },
   button: {
@@ -183,7 +186,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   shadow: {
-    shadowColor: BLACK,
+    shadowColor: "#000000",
     ...Platform.select({
       ios: {
         shadowOffset: { width: 2, height: 4 },

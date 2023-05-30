@@ -20,9 +20,11 @@ import { NotSupport } from "../util/NotSupport";
 import ImgMain from "../../assets/main.png";
 import { useUserContext } from "../contexts/UserContext";
 import { EMAIL_STORAGE } from "../api/dbKeys";
+import { useTheme } from "styled-components";
 
 const SignInScreen = ({ navigation }) => {
   const { setUser } = useUserContext();
+  const { COLORS } = useTheme();
 
   const passwordRef = useRef(null);
   const insets = useSafeAreaInsets();
@@ -148,7 +150,7 @@ const SignInScreen = ({ navigation }) => {
             title={"회원가입"}
             onPress={() => navigation.navigate("SignUp")}
           />
-          <Text style={{ color: "#515151" }}>/</Text>
+          <Text style={{ color: COLORS.subText }}>/</Text>
           <TextButton
             title={"이메일 또는 비밀번호 찾기"}
             onPress={() => NotSupport("이메일 또는 비밀번호 찾기")}

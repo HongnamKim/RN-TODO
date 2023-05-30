@@ -10,8 +10,13 @@ export default function DarkModeProvider({ children }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   const darkColors = {
+    BLACK: "#000000",
+    WHITE: "#ffffff",
+
     mainBg: "#09090b",
+    subBg: "#27272a",
     mainText: "#ffffff",
+    subText: "#9ca3af",
     PRIMARY: {
       LIGHT: "#93c5fd",
       DEFAULT: "#2563eb",
@@ -30,8 +35,13 @@ export default function DarkModeProvider({ children }) {
   };
 
   const lightColors = {
-    mainBg: "#ffffff",
+    BLACK: "#000000",
+    WHITE: "#ffffff",
+
+    mainBg: "#f2f2f7",
+    subBg: "#ffffff",
     mainText: "#000000",
+    subText: "#262626",
     PRIMARY: {
       LIGHT: "#93c5fd",
       DEFAULT: "#2563eb",
